@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gideon Hodge | Spooky, Fantasy & Steampunk Author</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#0b0c10',
+                        gothicDark: '#13151b',
+                        gothicCard: '#1a1d26',
+                        brass: {
+                            light: '#e0a96d',
+                            DEFAULT: '#c59b27',
+                            dark: '#8c6211'
+                        },
+                        copper: '#b87333',
+                        emeraldGlow: '#00fa9a',
+                        amberGlow: '#ffbf00',
+                        crimsonSpooky: '#8b0000',
+                        etherBlue: '#4b9cd3'
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'Georgia', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Courier Prime', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Courier+Prime:ital@0;1&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Aesthetics CSS -->
+    <style>
+        body {
+            background-color: #0b0c10;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Metallic text gradient */
+        .text-brass-gradient {
+            background: linear-gradient(135deg, #f3e5ab 0%, #c59b27 50%, #8c6211 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-emerald-gradient {
+            background: linear-gradient(135deg, #a7f3d0 0%, #10b981 50%, #047857 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-spooky-gradient {
+            background: linear-gradient(135deg, #f87171 0%, #dc2626 50%, #7f1d1d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Ornate borders and frames */
+        .brass-border {
+            border: 1px solid #c59b27;
+            box-shadow: 0 0 10px rgba(197, 155, 39, 0.15);
+        }
+
+        .brass-border-glow {
+            border: 1px solid #c59b27;
+            box-shadow: 0 0 20px rgba(197, 155, 39, 0.3), inset 0 0 10px rgba(197, 155, 39, 0.1);
+        }
+
+        .gothic-box {
+            background: rgba(26, 29, 38, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(197, 155, 39, 0.25);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gothic-box:hover {
+            border-color: rgba(197, 155, 39, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7), 0 0 15px rgba(197, 155, 39, 0.2);
+        }
+
+        /* Steampunk Cog Animation */
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes spin-reverse-slow {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        .gear-spin {
+            animation: spin-slow 25s linear infinite;
+        }
+        .gear-spin-rev {
+            animation: spin-reverse-slow 20s linear infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0c10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a3b10;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c59b27;
+        }
+
+        /* Background atmospheric mesh */
+        .bg-atmosphere {
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(139, 0, 0, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 85% 60%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(197, 155, 39, 0.1) 0%, transparent 50%);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-obsidian text-gray-200 bg-atmosphere flex flex-col justify-between selection:bg-brass selection:text-obsidian">
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-40 bg-obsidian/90 backdrop-blur-md border-b border-brass/20 transition-all duration-300" id="mainHeader">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo / Author Branding -->
+                <a href="#home" onclick="switchTab('home')" class="flex items-center space-x-3 group">
+                    <div class="relative w-10 h-10 flex items-center justify-center rounded-full bg-gothicDark border border-brass text-brass group-hover:border-brass-light transition-all duration-300 shadow-[0_0_10px_rgba(197,155,39,0.3)]">
+                        <i class="fa-solid fa-feather-pointed text-lg"></i>
+                        <i class="fa-solid fa-cog gear-spin absolute -bottom-1 -right-1 text-xs text-copper opacity-70"></i>
+                    </div>
+                    <div>
+                        <span class="font-cinzel text-xl sm:text-2xl font-bold tracking-wider text-brass-gradient block">GIDEON HODGE</span>
+                        <span class="text-[10px] tracking-[0.2em] text-gray-400 uppercase block -mt-1 font-mono">Author & Mythmaker</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Tabs -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-2 font-cinzel text-sm">
+                    <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-md transition-all text-brass hover:text-brass-light hover:bg-brass/10 border border-transparent flex items-center space-x-2">
+                        <i class="fa-solid fa-house text-xs"></i>
+                        <span>Home</span>
+                    </button>
+                    <button onclick="switchTab('spooky')" id="nav-spooky" class="nav-btn px-4 py-2 rounded-md transition-all text-gray-300 hover:text-red-400 hover:bg-red-950/20 border border-transparent flex items-center space-x-2">
+                        <i class="fa-solid fa-ghost text-xs"></i>
+                        <span>Spooky & Horror</span>
+                    </button>
+                    <button onclick="switchTab('fantasy')" id="nav-fantasy" class="nav-btn px-4 py-2 rounded-md transition-all text-gray-300 hover:text-emerald-400 hover:bg-emerald-950/20 border border-transparent flex items-center space-x-2">
+                        <i class="fa-solid fa-hat-wizard text-xs"></i>
+                        <span>Fantasy</span>
+                    </button>
+                    <button onclick="switchTab('steampunk')" id="nav-steampunk" class="nav-btn px-4 py-2 rounded-md transition-all text-gray-300 hover:text-amber-400 hover:bg-amber-950/20 border border-transparent flex items-center space-x-2">
+                        <i class="fa-solid fa-gears text-xs"></i>
+                        <span>Steampunk</span>
+                    </button>
+                    <button onclick="switchTab('media')" id="nav-media" class="nav-btn px-4 py-2 rounded-md transition-all text-gray-300 hover:text-brass hover:bg-brass/10 border border-transparent flex items-center space-x-2">
+                        <i class="fa-solid fa-link text-xs"></i>
+                        <span>Media & Links</span>
+                    </button>
+                </nav>
+
+                <!-- Quick Action Button (Newsletter) -->
+                <div class="hidden lg:flex items-center space-x-4">
+                    <button onclick="openModal('newsletterModal')" class="px-4 py-2 text-xs font-cinzel tracking-wider uppercase bg-gradient-to-r from-brass-dark to-brass text-obsidian font-bold rounded shadow-[0_0_15px_rgba(197,155,39,0.3)] hover:brightness-110 transition duration-200 flex items-center space-x-2">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>Join The Inner Circle</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="p-2 rounded-md text-brass hover:text-white hover:bg-gothicDark focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div class="md:hidden hidden bg-gothicDark border-b border-brass/30 px-4 pt-2 pb-6 space-y-2 font-cinzel" id="mobileMenu">
+            <button onclick="switchTab('home')" class="w-full text-left px-3 py-2 rounded text-brass hover:bg-brass/10 flex items-center space-x-3">
+                <i class="fa-solid fa-house w-5"></i><span>Home</span>
+            </button>
+            <button onclick="switchTab('spooky')" class="w-full text-left px-3 py-2 rounded text-red-400 hover:bg-red-950/30 flex items-center space-x-3">
+                <i class="fa-solid fa-ghost w-5"></i><span>Spooky & Horror</span>
+            </button>
+            <button onclick="switchTab('fantasy')" class="w-full text-left px-3 py-2 rounded text-emerald-400 hover:bg-emerald-950/30 flex items-center space-x-3">
+                <i class="fa-solid fa-hat-wizard w-5"></i><span>Fantasy</span>
+            </button>
+            <button onclick="switchTab('steampunk')" class="w-full text-left px-3 py-2 rounded text-amber-400 hover:bg-amber-950/30 flex items-center space-x-3">
+                <i class="fa-solid fa-gears w-5"></i><span>Steampunk</span>
+            </button>
+            <button onclick="switchTab('media')" class="w-full text-left px-3 py-2 rounded text-gray-200 hover:bg-brass/10 flex items-center space-x-3">
+                <i class="fa-solid fa-link w-5"></i><span>Media & Links</span>
+            </button>
+            <div class="pt-4 border-t border-brass/20">
+                <button onclick="openModal('newsletterModal')" class="w-full py-2.5 text-center font-cinzel text-xs uppercase bg-brass text-obsidian font-bold rounded">
+                    <i class="fa-solid fa-envelope mr-2"></i> Join Newsletter
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- ==================== TAB 1: HOME PAGE ==================== -->
+        <section id="tab-home" class="tab-content block space-y-16">
+            
+            <!-- Hero Banner -->
+            <div class="relative rounded-2xl overflow-hidden gothic-box border border-brass/40 p-8 sm:p-12 lg:p-16 flex flex-col md:flex-row items-center gap-12">
+                <!-- Background Ornamental Gear -->
+                <i class="fa-solid fa-gear gear-spin absolute -bottom-20 -right-20 text-[260px] text-brass/5 pointer-events-none"></i>
+                <i class="fa-solid fa-spaghetti-monster-flying absolute -top-10 -left-10 text-[200px] text-crimsonSpooky/5 pointer-events-none"></i>
+
+                <!-- Author Portrait / Aesthetic Cover -->
+                <div class="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 flex-shrink-0">
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-brass via-copper to-emeraldGlow p-1 animate-pulse">
+                        <div class="w-full h-full rounded-full bg-obsidian overflow-hidden relative">
+                            <img src="https://placehold.co/600x600/13151b/c59b27?text=Gideon+Hodge" alt="Gideon Hodge Author" class="w-full h-full object-cover filter contrast-125 sepia-[0.2]">
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-2 right-4 bg-gothicDark border border-brass px-3 py-1 rounded-full text-xs font-mono text-brass flex items-center space-x-1 shadow-lg">
+                        <i class="fa-solid fa-pen-nib text-brass"></i>
+                        <span>Active Author</span>
+                    </div>
+                </div>
+
+                <!-- Bio & Introduction -->
+                <div class="space-y-6 text-center md:text-left z-10">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brass/10 border border-brass/30 text-brass text-xs font-mono tracking-widest uppercase">
+                        <i class="fa-solid fa-skull text-red-400"></i>
+                        <span>Horror &bull; High Fantasy &bull; Clockwork Worlds</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl font-cinzel font-black tracking-tight text-white leading-tight">
+                        Weaver of <span class="text-spooky-gradient">Shadows</span>, <span class="text-emerald-gradient">Spells</span> & <span class="text-brass-gradient">Steam</span>
+                    </h1>
+
+                    <p class="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl font-sans">
+                        Welcome, traveler of the strange and fantastical. I am <strong class="text-brass font-cinzel">Gideon Hodge</strong>. I craft eerie horror stories that linger in the dark, grand fantasy epics drenched in ancient magic, and Victorian steampunk adventures driven by brass machinery and secret alchemy.
+                    </p>
+
+                    <!-- Call to Action Buttons -->
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
+                        <button onclick="switchTab('spooky')" class="px-5 py-3 rounded bg-red-950/80 hover:bg-red-900 border border-red-600/50 text-red-200 font-cinzel text-xs font-bold tracking-wider uppercase transition flex items-center space-x-2 shadow-lg">
+                            <i class="fa-solid fa-ghost"></i>
+                            <span>Explore Horror</span>
+                        </button>
+                        <button onclick="switchTab('fantasy')" class="px-5 py-3 rounded bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-600/50 text-emerald-200 font-cinzel text-xs font-bold tracking-wider uppercase transition flex items-center space-x-2 shadow-lg">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>Enter Fantasy Realms</span>
+                        </button>
+                        <button onclick="switchTab('steampunk')" class="px-5 py-3 rounded bg-amber-950/80 hover:bg-amber-900 border border-amber-600/50 text-amber-200 font-cinzel text-xs font-bold tracking-wider uppercase transition flex items-center space-x-2 shadow-lg">
+                            <i class="fa-solid fa-compass"></i>
+                            <span>Discover Steampunk</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Works Section -->
+            <div class="space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-brass/20 pb-4">
+                    <div>
+                        <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-brass-gradient">Featured Masterpieces</h2>
+                        <p class="text-xs font-mono text-gray-400 mt-1">Hand-picked entries across all three literary domains</p>
+                    </div>
+                    <a href="#media" onclick="switchTab('media')" class="mt-2 sm:mt-0 text-xs font-cinzel text-brass hover:text-brass-light flex items-center space-x-1">
+                        <span>View Full Bibliography</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- 3 Showcase Book Cards (One for each genre) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Spooky Highlight -->
+                    <div class="gothic-box rounded-xl overflow-hidden flex flex-col justify-between border-red-900/40 hover:border-red-600/60">
+                        <div class="relative">
+                            <img src="https://placehold.co/400x600/1e0d0d/e2e8f0?text=The+Hollow+Gallows" alt="The Hollow Gallows Cover" class="w-full h-64 object-cover">
+                            <span class="absolute top-3 right-3 bg-red-950/90 text-red-300 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded border border-red-800">
+                                Spooky / Gothic
+                            </span>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <div>
+                                <h3 class="font-cinzel text-xl font-bold text-white mb-1">The Hollow Gallows</h3>
+                                <p class="text-xs font-serif text-red-400 italic mb-3">"Where hanged secrets refuse to stay buried."</p>
+                                <p class="text-gray-400 text-xs line-clamp-3">A spectral mist settles over Blackwood Manor, bringing with it whispers of executed witches from 1692. A lone investigator must solve a murder committed by an invisible hands.</p>
+                            </div>
+                            <div class="pt-4 border-t border-gray-800 flex items-center justify-between">
+                                <button onclick="openExcerpt('gallows')" class="text-xs text-brass hover:underline flex items-center space-x-1">
+                                    <i class="fa-solid fa-book-open"></i><span>Read Sample</span>
+                                </button>
+                                <button onclick="openBuyModal('The Hollow Gallows')" class="px-3 py-1.5 bg-red-900/80 hover:bg-red-800 text-white rounded text-xs font-cinzel">
+                                    Get Book
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fantasy Highlight -->
+                    <div class="gothic-box rounded-xl overflow-hidden flex flex-col justify-between border-emerald-900/40 hover:border-emerald-600/60">
+                        <div class="relative">
+                            <img src="https://placehold.co/400x600/0d1e18/e2e8f0?text=Chronicles+of+the+Ember+Crown" alt="Chronicles of Ember Crown Cover" class="w-full h-64 object-cover">
+                            <span class="absolute top-3 right-3 bg-emerald-950/90 text-emerald-300 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded border border-emerald-800">
+                                High Fantasy
+                            </span>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <div>
+                                <h3 class="font-cinzel text-xl font-bold text-white mb-1">Chronicles of the Ember Crown</h3>
+                                <p class="text-xs font-serif text-emerald-400 italic mb-3">"A shattered throne. A rising dragon's soul."</p>
+                                <p class="text-gray-400 text-xs line-clamp-3">When the ancient sun-stone fractures, six kingdoms descend into arcane warfare. An exiled cartographer holds the map to the primal forge.</p>
+                            </div>
+                            <div class="pt-4 border-t border-gray-800 flex items-center justify-between">
+                                <button onclick="openExcerpt('ember')" class="text-xs text-brass hover:underline flex items-center space-x-1">
+                                    <i class="fa-solid fa-book-open"></i><span>Read Sample</span>
+                                </button>
+                                <button onclick="openBuyModal('Chronicles of the Ember Crown')" class="px-3 py-1.5 bg-emerald-900/80 hover:bg-emerald-800 text-white rounded text-xs font-cinzel">
+                                    Get Book
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Steampunk Highlight -->
+                    <div class="gothic-box rounded-xl overflow-hidden flex flex-col justify-between border-amber-900/40 hover:border-amber-600/60">
+                        <div class="relative">
+                            <img src="https://placehold.co/400x600/21190d/e2e8f0?text=The+Aether Engine+Conspiracy" alt="Aether Engine Cover" class="w-full h-64 object-cover">
+                            <span class="absolute top-3 right-3 bg-amber-950/90 text-amber-300 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded border border-amber-800">
+                                Steampunk
+                            </span>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <div>
+                                <h3 class="font-cinzel text-xl font-bold text-white mb-1">The Aether Engine Conspiracy</h3>
+                                <p class="text-xs font-serif text-amber-400 italic mb-3">"Clockwork hearts don't break. They detonate."</p>
+                                <p class="text-gray-400 text-xs line-clamp-3">In smog-choked New London, 1888, brass dirigibles rule the skies. A clockwork assassin and an alchemist join forces against the Crown's secret ministry.</p>
+                            </div>
+                            <div class="pt-4 border-t border-gray-800 flex items-center justify-between">
+                                <button onclick="openExcerpt('aether')" class="text-xs text-brass hover:underline flex items-center space-x-1">
+                                    <i class="fa-solid fa-book-open"></i><span>Read Sample</span>
+                                </button>
+                                <button onclick="openBuyModal('The Aether Engine Conspiracy')" class="px-3 py-1.5 bg-amber-900/80 hover:bg-amber-800 text-white rounded text-xs font-cinzel">
+                                    Get Book
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Inline Newsletter Section -->
+            <div class="gothic-box rounded-2xl p-8 sm:p-12 border-brass/50 bg-gradient-to-r from-gothicDark via-obsidian to-gothicDark relative overflow-hidden text-center sm:text-left flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div class="max-w-xl space-y-3 z-10">
+                    <span class="text-xs font-mono text-brass uppercase tracking-widest flex items-center justify-center sm:justify-start space-x-2">
+                        <i class="fa-solid fa-scroll text-brass"></i>
+                        <span>The Cabinet of Curiosities</span>
+                    </span>
+                    <h3 class="font-cinzel text-2xl sm:text-3xl font-bold text-white">Subscribe to the Secret Dispatch</h3>
+                    <p class="text-gray-300 text-sm">Get exclusive short stories, free character artwork, steampunk lore drop PDF guides, and early access to book releases.</p>
+                </div>
+                <div class="w-full lg:w-auto z-10">
+                    <form onsubmit="handleNewsletterSubmit(event)" class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+                        <input type="email" required placeholder="Enter your email address..." class="px-4 py-3 bg-obsidian border border-brass/40 rounded text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brass flex-grow">
+                        <button type="submit" class="px-6 py-3 bg-brass hover:bg-brass-light text-obsidian font-cinzel font-bold text-xs uppercase tracking-wider rounded transition whitespace-nowrap shadow-[0_0_15px_rgba(197,155,39,0.3)]">
+                            Subscribe
+                        </button>
+                    </form>
+                    <p class="text-[10px] text-gray-500 mt-2 text-center sm:text-left font-mono">No spam. Unsubscribe anytime with one click.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ==================== TAB 2: SPOOKY & HORROR ==================== -->
+        <section id="tab-spooky" class="tab-content hidden space-y-12">
+            <!-- Spooky Header -->
+            <div class="border-b border-red-900/40 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 class="font-cinzel text-3xl sm:text-4xl font-bold text-spooky-gradient flex items-center space-x-3">
+                        <i class="fa-solid fa-ghost text-red-600"></i>
+                        <span>Spooky & Gothic Horror Collection</span>
+                    </h1>
+                    <p class="text-gray-400 text-sm mt-2 font-serif italic">"Tales crafted for haunted nights, flickering candles, and cold iron doors."</p>
+                </div>
+                <div class="bg-red-950/40 border border-red-800/50 px-4 py-2 rounded text-xs text-red-300 font-mono">
+                    <i class="fa-solid fa-skull mr-2"></i>3 Works Published
+                </div>
+            </div>
+
+            <!-- Horror Books Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Book 1 -->
+                <div class="gothic-box rounded-xl p-6 border-red-950 hover:border-red-700/60 flex flex-col sm:flex-row gap-6">
+                    <img src="https://placehold.co/400x600/1e0d0d/e2e8f0?text=The+Hollow+Gallows" alt="The Hollow Gallows" class="w-full sm:w-44 h-64 object-cover rounded shadow-lg border border-red-900/30">
+                    <div class="flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[10px] font-mono text-red-400 uppercase tracking-widest bg-red-950/60 px-2 py-0.5 rounded border border-red-900">Gothic Horror Novel</span>
+                            <h3 class="font-cinzel text-2xl font-bold text-white mt-2">The Hollow Gallows</h3>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">In the foggy coastal town of Blackwood, the dead walk not in shadows, but in memory. When Julian investigates a series of supernatural hangings, he discovers his own name carved on the gallows beam.</p>
+                        </div>
+                        <div class="space-y-3 pt-2">
+                            <div class="flex flex-wrap gap-2 text-[11px] font-mono text-gray-400">
+                                <span class="bg-obsidian px-2 py-1 rounded">Ghosts</span>
+                                <span class="bg-obsidian px-2 py-1 rounded">Victorian Mystery</span>
+                                <span class="bg-obsidian px-2 py-1 rounded">Curse Lore</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button onclick="openExcerpt('gallows')" class="px-3 py-1.5 border border-red-800 text-red-300 hover:bg-red-950 rounded text-xs font-cinzel">
+                                    <i class="fa-solid fa-book-open mr-1"></i> Sample Excerpt
+                                </button>
+                                <button onclick="openBuyModal('The Hollow Gallows')" class="px-4 py-1.5 bg-red-900 hover:bg-red-800 text-white rounded text-xs font-cinzel">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 2 -->
+                <div class="gothic-box rounded-xl p-6 border-red-950 hover:border-red-700/60 flex flex-col sm:flex-row gap-6">
+                    <img src="https://placehold.co/400x600/220808/e2e8f0?text=Whispers+in+the+Obsidian+Crypt" alt="Whispers in Crypt" class="w-full sm:w-44 h-64 object-cover rounded shadow-lg border border-red-900/30">
+                    <div class="flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[10px] font-mono text-red-400 uppercase tracking-widest bg-red-950/60 px-2 py-0.5 rounded border border-red-900">Short Story Anthology</span>
+                            <h3 class="font-cinzel text-2xl font-bold text-white mt-2">Whispers in the Crypt</h3>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">Thirteen chilling macabre tales featuring ancient graveyards, haunted Victorian heirlooms, and eldritch horrors lurking beneath church foundations.</p>
+                        </div>
+                        <div class="space-y-3 pt-2">
+                            <div class="flex flex-wrap gap-2 text-[11px] font-mono text-gray-400">
+                                <span class="bg-obsidian px-2 py-1 rounded">Anthology</span>
+                                <span class="bg-obsidian px-2 py-1 rounded">Eldritch</span>
+                                <span class="bg-obsidian px-2 py-1 rounded">Dark Academia</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button onclick="openExcerpt('crypt')" class="px-3 py-1.5 border border-red-800 text-red-300 hover:bg-red-950 rounded text-xs font-cinzel">
+                                    <i class="fa-solid fa-book-open mr-1"></i> Sample Excerpt
+                                </button>
+                                <button onclick="openBuyModal('Whispers in the Crypt')" class="px-4 py-1.5 bg-red-900 hover:bg-red-800 text-white rounded text-xs font-cinzel">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== TAB 3: FANTASY ==================== -->
+        <section id="tab-fantasy" class="tab-content hidden space-y-12">
+            <!-- Fantasy Header -->
+            <div class="border-b border-emerald-900/40 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 class="font-cinzel text-3xl sm:text-4xl font-bold text-emerald-gradient flex items-center space-x-3">
+                        <i class="fa-solid fa-hat-wizard text-emerald-500"></i>
+                        <span>Epic & Mythic Fantasy World</span>
+                    </h1>
+                    <p class="text-gray-400 text-sm mt-2 font-serif italic">"High magic, ancient dragons, and sprawling kingdoms forged in cosmic fire."</p>
+                </div>
+                <div class="bg-emerald-950/40 border border-emerald-800/50 px-4 py-2 rounded text-xs text-emerald-300 font-mono">
+                    <i class="fa-solid fa-scroll mr-2"></i>Ember Crown Saga (Book 1 & 2)
+                </div>
+            </div>
+
+            <!-- Fantasy Books Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Book 1 -->
+                <div class="gothic-box rounded-xl p-6 border-emerald-950 hover:border-emerald-700/60 flex flex-col sm:flex-row gap-6">
+                    <img src="https://placehold.co/400x600/0d1e18/e2e8f0?text=Chronicles+of+the+Ember+Crown" alt="Ember Crown" class="w-full sm:w-44 h-64 object-cover rounded shadow-lg border border-emerald-900/30">
+                    <div class="flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-900">Ember Crown #1</span>
+                            <h3 class="font-cinzel text-2xl font-bold text-white mt-2">Chronicles of the Ember Crown</h3>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">When the Sun-Forge collapses, the realm of Aethelgard falls into eternal frost. A disgraced scholar must awaken the slumbering Wyrm of Eldern to rekindle the world's heart.</p>
+                        </div>
+                        <div class="space-y-3 pt-2">
+                            <div class="flex flex-wrap gap-2 text-[11px] font-mono text-gray-400">
+                                <span class="bg-obsidian px-2 py-1 rounded">Dragons</span>
+                                <span class="bg-obsidian px-2 py-1 rounded">High Magic</span>
+                                <span class="bg-obsidian px-2 py-1 rounded">Worldbuilding</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button onclick="openExcerpt('ember')" class="px-3 py-1.5 border border-emerald-800 text-emerald-300 hover:bg-emerald-950 rounded text-xs font-cinzel">
+                                    <i class="fa-solid fa-book-open mr-1"></i> Sample Excerpt
+                                </button>
+                                <button onclick="openBuyModal('Chronicles of the Ember Crown')" class="px-4 py-1.5 bg-emerald-900 hover:bg-emerald-800 text-white rounded text-xs font-cinzel">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 2 -->
+                <div class="gothic-box rounded-xl p-6 border-emerald-950 hover:border-emerald-700/60 flex flex-col sm:flex-row gap-6">
+                    <img src="https://placehold.co/400x600/082117/e2e8f0?text=The+Verdant+Spell-Weaver" alt="Verdant Spell Weaver" class="w-full sm:w-44 h-64 object-cover rounded shadow-lg border border-emerald-900/30">
+                    <div class="flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-900">Ember Crown #2</span>
+                            <h3 class="font-cinzel text-2xl font-bold text-white mt-2">The Verdant Spell-Weaver</h3>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">The journey continues through the living Forest of Whispers. Ancient druidic sects clash with court sorcerers in a fight for control over the primal ley-lines.</p>
+                        </div>
+                        <div class="space-y-3 pt-2">
+                            <div class="flex flex-wrap gap-2 text-[11px] font-mono text-gray-400">
+                                <span class="bg-obsidian px-2 py-1 rounded">Sequel</span>
+                                <span class="bg-obsidian px-2 py-1 rounded">Elemental Magic</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button onclick="openExcerpt('verdant')" class="px-3 py-1.5 border border-emerald-800 text-emerald-300 hover:bg-emerald-950 rounded text-xs font-cinzel">
+                                    <i class="fa-solid fa-book-open mr-1"></i> Sample Excerpt
+                                </button>
+                                <button onclick="openBuyModal('The Verdant Spell-Weaver')" class="px-4 py-1.5 bg-emerald-900 hover:bg-emerald-800 text-white rounded text-xs font-cinzel">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== TAB 4: STEAMPUNK ==================== -->
+        <section id="tab-steampunk" class="tab-content hidden space-y-12">
+            <!-- Steampunk Header -->
+            <div class="border-b border-amber-900/40 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 class="font-cinzel text-3xl sm:text-4xl font-bold text-brass-gradient flex items-center space-x-3">
+                        <i class="fa-solid fa-gears text-amber-500 gear-spin"></i>
+                        <span>Victorian Steampunk & Aether-Tech</span>
+                    </h1>
+                    <p class="text-gray-400 text-sm mt-2 font-serif italic">"Brass cogs, steam-powered dirigibles, and secret societies in retro-futuristic Victorian London."</p>
+                </div>
+                <div class="bg-amber-950/40 border border-amber-800/50 px-4 py-2 rounded text-xs text-amber-300 font-mono">
+                    <i class="fa-solid fa-compass mr-2"></i>Aether-Tech Universe
+                </div>
+            </div>
+
+            <!-- Steampunk Books Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Book 1 -->
+                <div class="gothic-box rounded-xl p-6 border-amber-950 hover:border-amber-700/60 flex flex-col sm:flex-row gap-6">
+                    <img src="https://placehold.co/400x600/21190d/e2e8f0?text=The+Aether+Engine+Conspiracy" alt="Aether Engine Conspiracy" class="w-full sm:w-44 h-64 object-cover rounded shadow-lg border border-amber-900/30">
+                    <div class="flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[10px] font-mono text-amber-400 uppercase tracking-widest bg-amber-950/60 px-2 py-0.5 rounded border border-amber-900">Steampunk Novel</span>
+                            <h3 class="font-cinzel text-2xl font-bold text-white mt-2">The Aether Engine Conspiracy</h3>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">When the Royal Academy of Sciences invents a machine powered by atmospheric condensed lightning, rival sky-pirates and crown agents wage war over the sky docks of London.</p>
+                        </div>
+                        <div class="space-y-3 pt-2">
+                            <div class="flex flex-wrap gap-2 text-[11px] font-mono text-gray-400">
+                                <span class="bg-obsidian px-2 py-1 rounded">Dirigibles</span>
+                                <span class="bg-obsidian px-2 py-1 rounded">Clockwork</span>
+                                <span class="bg-obsidian px-2 py-1 rounded">Victorian Sci-Fi</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button onclick="openExcerpt('aether')" class="px-3 py-1.5 border border-amber-800 text-amber-300 hover:bg-amber-950 rounded text-xs font-cinzel">
+                                    <i class="fa-solid fa-book-open mr-1"></i> Sample Excerpt
+                                </button>
+                                <button onclick="openBuyModal('The Aether Engine Conspiracy')" class="px-4 py-1.5 bg-amber-900 hover:bg-amber-800 text-white rounded text-xs font-cinzel">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book 2 -->
+                <div class="gothic-box rounded-xl p-6 border-amber-950 hover:border-amber-700/60 flex flex-col sm:flex-row gap-6">
+                    <img src="https://placehold.co/400x600/1c1208/e2e8f0?text=Clockwork+and+Corpse" alt="Clockwork & Corpse" class="w-full sm:w-44 h-64 object-cover rounded shadow-lg border border-amber-900/30">
+                    <div class="flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[10px] font-mono text-amber-400 uppercase tracking-widest bg-amber-950/60 px-2 py-0.5 rounded border border-amber-900">Steampunk Mystery</span>
+                            <h3 class="font-cinzel text-2xl font-bold text-white mt-2">Clockwork & Corpse</h3>
+                            <p class="text-xs text-gray-400 mt-2 leading-relaxed">An automaton is found guilty of murdering a high-ranking lord. Detective Silas Vance believes the brass man was framed by someone controlling its copper gears from afar.</p>
+                        </div>
+                        <div class="space-y-3 pt-2">
+                            <div class="flex flex-wrap gap-2 text-[11px] font-mono text-gray-400">
+                                <span class="bg-obsidian px-2 py-1 rounded">Automatons</span>
+                                <span class="bg-obsidian px-2 py-1 rounded">Murder Mystery</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button onclick="openExcerpt('clockwork')" class="px-3 py-1.5 border border-amber-800 text-amber-300 hover:bg-amber-950 rounded text-xs font-cinzel">
+                                    <i class="fa-solid fa-book-open mr-1"></i> Sample Excerpt
+                                </button>
+                                <button onclick="openBuyModal('Clockwork and Corpse')" class="px-4 py-1.5 bg-amber-900 hover:bg-amber-800 text-white rounded text-xs font-cinzel">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== TAB 5: MEDIA & LINKS ==================== -->
+        <section id="tab-media" class="tab-content hidden space-y-12">
+            
+            <div class="border-b border-brass/30 pb-6">
+                <h1 class="font-cinzel text-3xl sm:text-4xl font-bold text-brass-gradient">Media, Socials & Support Hub</h1>
+                <p class="text-gray-400 text-sm mt-2">Connect with Gideon Hodge across all digital realms, watch video logs, or support future writing on Patreon.</p>
+            </div>
+
+            <!-- Social Links Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- YouTube -->
+                <a href="https://youtube.com" target="_blank" class="gothic-box rounded-xl p-6 flex items-center space-x-4 border-red-900/40 hover:border-red-600 transition group">
+                    <div class="w-12 h-12 rounded-full bg-red-950 border border-red-700 flex items-center justify-center text-red-500 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-youtube text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-red-400">YouTube Channel</h3>
+                        <p class="text-xs text-gray-400">Worldbuilding vlogs & lore breakdowns</p>
+                    </div>
+                </a>
+
+                <!-- Patreon -->
+                <a href="https://patreon.com" target="_blank" class="gothic-box rounded-xl p-6 flex items-center space-x-4 border-amber-900/40 hover:border-amber-600 transition group">
+                    <div class="w-12 h-12 rounded-full bg-amber-950 border border-amber-700 flex items-center justify-center text-amber-500 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-patreon text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-amber-400">Patreon Guild</h3>
+                        <p class="text-xs text-gray-400">Early draft access & monthly lore Q&As</p>
+                    </div>
+                </a>
+
+                <!-- Blog / Substack -->
+                <a href="#blog" class="gothic-box rounded-xl p-6 flex items-center space-x-4 border-emerald-900/40 hover:border-emerald-600 transition group">
+                    <div class="w-12 h-12 rounded-full bg-emerald-950 border border-emerald-700 flex items-center justify-center text-emerald-500 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-newspaper text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-emerald-400">Author Blog</h3>
+                        <p class="text-xs text-gray-400">Essays on writing, gothic horror & steam</p>
+                    </div>
+                </a>
+
+                <!-- Discord -->
+                <a href="https://discord.com" target="_blank" class="gothic-box rounded-xl p-6 flex items-center space-x-4 border-indigo-900/40 hover:border-indigo-600 transition group">
+                    <div class="w-12 h-12 rounded-full bg-indigo-950 border border-indigo-700 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-discord text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-indigo-400">Discord Server</h3>
+                        <p class="text-xs text-gray-400">Join 3,000+ readers in community chat</p>
+                    </div>
+                </a>
+
+                <!-- X / Twitter -->
+                <a href="https://x.com" target="_blank" class="gothic-box rounded-xl p-6 flex items-center space-x-4 border-brass/30 hover:border-brass transition group">
+                    <div class="w-12 h-12 rounded-full bg-gothicDark border border-brass flex items-center justify-center text-brass group-hover:scale-110 transition">
+                        <i class="fa-brands fa-x-twitter text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-brass">X / Twitter</h3>
+                        <p class="text-xs text-gray-400">Daily writing updates & thoughts</p>
+                    </div>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://instagram.com" target="_blank" class="gothic-box rounded-xl p-6 flex items-center space-x-4 border-pink-900/40 hover:border-pink-600 transition group">
+                    <div class="w-12 h-12 rounded-full bg-pink-950 border border-pink-700 flex items-center justify-center text-pink-400 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-instagram text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-pink-400">Instagram</h3>
+                        <p class="text-xs text-gray-400">Aesthetic desk setups & art previews</p>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- Embedded Video Showcase Mock -->
+            <div class="gothic-box rounded-2xl p-6 sm:p-8 border-brass/30 space-y-4">
+                <h3 class="font-cinzel text-xl font-bold text-brass flex items-center space-x-2">
+                    <i class="fa-solid fa-film"></i>
+                    <span>Latest Worldbuilding Stream</span>
+                </h3>
+                <div class="aspect-video w-full bg-obsidian rounded-xl border border-brass/20 flex items-center justify-center relative overflow-hidden group">
+                    <img src="https://placehold.co/1280x720/13151b/c59b27?text=Watch+Gideon+Hodge%27s+Worldbuilding+Vlog" alt="Video Placeholder" class="w-full h-full object-cover">
+                    <button class="absolute inset-0 m-auto w-16 h-16 rounded-full bg-brass/90 text-obsidian flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(197,155,39,0.6)] group-hover:scale-110 transition">
+                        <i class="fa-solid fa-play ml-1"></i>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- EXCERPT MODAL -->
+    <div id="excerptModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="gothic-box rounded-2xl border-brass max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[85vh] overflow-y-auto relative">
+            <button onclick="closeModal('excerptModal')" class="absolute top-4 right-4 text-gray-400 hover:text-brass text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div>
+                <span class="text-[10px] font-mono text-brass uppercase tracking-widest" id="excerptGenre">Sample Excerpt</span>
+                <h3 class="font-cinzel text-2xl font-bold text-white mt-1" id="excerptTitle">Book Title</h3>
+            </div>
+            <div class="border-t border-b border-brass/20 py-4 font-serif text-sm sm:text-base text-gray-300 leading-relaxed italic space-y-4" id="excerptContent">
+                <!-- Dynamic text populated by JS -->
+            </div>
+            <div class="flex justify-end">
+                <button onclick="closeModal('excerptModal')" class="px-5 py-2 bg-brass text-obsidian font-cinzel font-bold text-xs uppercase rounded hover:bg-brass-light">
+                    Close Reading
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BUY / STORE LINKS MODAL -->
+    <div id="buyModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="gothic-box rounded-2xl border-brass max-w-md w-full p-6 space-y-6 relative">
+            <button onclick="closeModal('buyModal')" class="absolute top-4 right-4 text-gray-400 hover:text-brass text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center">
+                <i class="fa-solid fa-book text-3xl text-brass mb-2"></i>
+                <h3 class="font-cinzel text-xl font-bold text-white" id="buyModalBookTitle">Select Bookseller</h3>
+                <p class="text-xs text-gray-400 mt-1">Choose your preferred reading format and retailer.</p>
+            </div>
+            <div class="space-y-3 font-cinzel text-xs">
+                <a href="https://amazon.com" target="_blank" class="w-full p-3 rounded bg-gothicDark hover:bg-brass/20 border border-brass/30 flex items-center justify-between text-white transition">
+                    <span class="flex items-center space-x-3"><i class="fa-brands fa-amazon text-amber-400 text-lg"></i><span>Amazon Kindle & Paperback</span></span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                </a>
+                <a href="https://audible.com" target="_blank" class="w-full p-3 rounded bg-gothicDark hover:bg-brass/20 border border-brass/30 flex items-center justify-between text-white transition">
+                    <span class="flex items-center space-x-3"><i class="fa-solid fa-headphones text-amber-400 text-lg"></i><span>Audible Audiobook</span></span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                </a>
+                <a href="https://barnesandnoble.com" target="_blank" class="w-full p-3 rounded bg-gothicDark hover:bg-brass/20 border border-brass/30 flex items-center justify-between text-white transition">
+                    <span class="flex items-center space-x-3"><i class="fa-solid fa-book-bookmark text-emerald-400 text-lg"></i><span>Barnes & Noble</span></span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-gray-400"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEWSLETTER MODAL -->
+    <div id="newsletterModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="gothic-box rounded-2xl border-brass max-w-lg w-full p-6 sm:p-8 space-y-6 relative">
+            <button onclick="closeModal('newsletterModal')" class="absolute top-4 right-4 text-gray-400 hover:text-brass text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 rounded-full bg-brass/10 border border-brass text-brass flex items-center justify-center mx-auto">
+                    <i class="fa-solid fa-feather text-xl"></i>
+                </div>
+                <h3 class="font-cinzel text-2xl font-bold text-white">Join Gideon's Inner Circle</h3>
+                <p class="text-xs text-gray-300">Receive monthly secret updates, free short stories, and steampunk lore maps directly in your inbox.</p>
+            </div>
+            <form onsubmit="handleNewsletterSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-mono text-gray-400 mb-1">YOUR NAME</label>
+                    <input type="text" placeholder="Lord / Lady Raven..." class="w-full px-4 py-2.5 bg-obsidian border border-brass/30 rounded text-sm text-white focus:outline-none focus:border-brass">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-gray-400 mb-1">EMAIL ADDRESS</label>
+                    <input type="email" required placeholder="author@example.com" class="w-full px-4 py-2.5 bg-obsidian border border-brass/30 rounded text-sm text-white focus:outline-none focus:border-brass">
+                </div>
+                <button type="submit" class="w-full py-3 bg-brass hover:bg-brass-light text-obsidian font-cinzel font-bold text-xs uppercase rounded transition">
+                    Subscribe To Dispatch
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-brass/20 bg-gothicDark mt-16 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <div class="flex justify-center space-x-6 text-xl text-brass">
+                <a href="https://youtube.com" target="_blank" class="hover:text-brass-light"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://patreon.com" target="_blank" class="hover:text-brass-light"><i class="fa-brands fa-patreon"></i></a>
+                <a href="https://x.com" target="_blank" class="hover:text-brass-light"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://discord.com" target="_blank" class="hover:text-brass-light"><i class="fa-brands fa-discord"></i></a>
+            </div>
+            <p class="text-xs font-cinzel text-gray-400">
+                &copy; <span id="year"></span> Gideon Hodge. All rights reserved. Built for GitHub Pages.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Auto-update year
+        document.getElementById('year').innerText = new Date().getFullYear();
+
+        // Sample Excerpts Data
+        const excerptsData = {
+            gallows: {
+                title: "The Hollow Gallows - Chapter 1 Excerpt",
+                genre: "Spooky & Gothic Horror",
+                text: `<p>"The rain in Blackwood did not fall; it drifted, cold and thick as grave dust, clinging to the wrought-iron lanterns along Gallows Lane."</p>
+                       <p>"Julian held his breath as the shadow shifted behind the tree line. No footstep had sounded, yet there stood the figure in the tattered coat—the same coat buried three feet under six winters ago."</p>`
+            },
+            crypt: {
+                title: "Whispers in the Crypt - Prologue Excerpt",
+                genre: "Gothic Horror Anthology",
+                text: `<p>"The lock on St. Jude’s catacombs had not turned since 1842. When the key finally grated in the iron cylinder, it sounded like a dying breath."</p>`
+            },
+            ember: {
+                title: "Chronicles of the Ember Crown - Chapter 1 Excerpt",
+                genre: "High Fantasy",
+                text: `<p>"The dragon’s skull sat atop the obsidian throne, its eye sockets burning with the faint green embers of forgotten elemental magic."</p>`
+            },
+            verdant: {
+                title: "The Verdant Spell-Weaver - Chapter 1 Excerpt",
+                genre: "High Fantasy Saga",
+                text: `<p>"Roots broke through the marble floor of the high council, thick as oak trunks, bleeding golden sap that sang in ancient High Elven."</p>`
+            },
+            aether: {
+                title: "The Aether Engine Conspiracy - Chapter 1 Excerpt",
+                genre: "Victorian Steampunk",
+                text: `<p>"The copper gauge rattled erratically, its needle shivering in the red zone. 'More steam, Mr. Finch!' Lady Genevieve shouted over the deafening roar of the brass turbine."</p>`
+            },
+            clockwork: {
+                title: "Clockwork & Corpse - Chapter 1 Excerpt",
+                genre: "Steampunk Mystery",
+                text: `<p>"The automaton sat in the brass chair, its copper fingers twitching in rhythm with a clock that wasn't in the room."</p>`
+            }
+        };
+
+        // Navigation Switcher
+        function switchTab(tabId) {
+            // Hide all tab content sections
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.add('hidden'));
+
+            // Show target section
+            const target = document.getElementById(`tab-${tabId}`);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+
+            // Update nav button states
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('bg-brass/20', 'border-brass/40');
+            });
+
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-brass/20', 'border-brass/40');
+            }
+
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.add('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Modal Controls
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.getElementById(modalId).classList.add('flex');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.getElementById(modalId).classList.remove('flex');
+        }
+
+        // Open Excerpt
+        function openExcerpt(key) {
+            const data = excerptsData[key];
+            if (data) {
+                document.getElementById('excerptTitle').innerText = data.title;
+                document.getElementById('excerptGenre').innerText = data.genre;
+                document.getElementById('excerptContent').innerHTML = data.text;
+                openModal('excerptModal');
+            }
+        }
+
+        // Open Buy Modal
+        function openBuyModal(bookTitle) {
+            document.getElementById('buyModalBookTitle').innerText = `Get "${bookTitle}"`;
+            openModal('buyModal');
+        }
+
+        // Newsletter Form Handler
+        function handleNewsletterSubmit(e) {
+            e.preventDefault();
+            alert("Thank you for joining Gideon Hodge's Inner Circle! Check your inbox for your welcome short story.");
+            closeModal('newsletterModal');
+        }
+    </script>
+</body>
+</html>
